@@ -19,5 +19,6 @@ public class Customer {
     // Getters
     public String getCustomerId() { return customerId; }
     public String getName() { return name; }
+    public String getPhone() { return phone;}
     public boolean isContract() { return isContract; }
 }
