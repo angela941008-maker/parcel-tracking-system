@@ -48,4 +48,6 @@ public class Package {
     public double getWeight() { return weight; }
     public String getServiceType() { return serviceType; }
     public List<TrackingEvent> getEventHistory() { return eventHistory; }
+    public String getReceiverName() { return receiverName;}
+    public String getReceiverAddress() { return receiverAddress;}
 }
