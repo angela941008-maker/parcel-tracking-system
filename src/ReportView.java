@@ -14,40 +14,33 @@ public class ReportView {
         System.out.printf("申報價值: %.2f%n", p.getDeclaredValue());
         System.out.printf("內容描述: %s%n", p.getContentDescription());
 
-        // 目前狀態：用最後一筆 event 的 status 來顯示（因為 Package 沒有 getter currentStatus）
+        // 目前狀態：用最後一筆事件顯示（不依賴 TrackingEvent getter）
         String status = "(未知)";
         List<TrackingEvent> history = p.getEventHistory();
         if (history != null && !history.isEmpty()) {
             TrackingEvent last = history.get(history.size() - 1);
-            // 假設 TrackingEvent 有 getStatus()；如果沒有，至少 history.toString 也能印
-            try {
-                status = last.getStatus();
-            } catch (Exception e) {
-                status = last.toString();
-            }
+            status = last.toString();
         }
-        System.out.printf("目前狀態: %s%n", status);
+        System.out.printf("目前狀態(最後事件): %s%n", status);
         System.out.println("==============================");
     }
 
     public static void printHistory(Package p) {
         System.out.println("\n------ 追蹤歷史紀錄 ------");
         List<TrackingEvent> history = p.getEventHistory();
+
         if (history == null || history.isEmpty()) {
             System.out.println("(無紀錄)");
+            System.out.println("--------------------------");
             return;
         }
 
         for (TrackingEvent e : history) {
-            // 假設 TrackingEvent 有 getters：getTime/getLocation/getStatus/getDescription
-            // 若沒有，就用 toString()
-            try {
-                System.out.printf("[%s] %s | %s | %s%n",
-                        e.getTime(), e.getLocation(), e.getStatus(), e.getDescription());
-            } catch (Exception ex) {
-                System.out.println(e.toString());
-            }
+            // ✅ 不用 getTime/getLocation/getStatus/getDescription，避免找不到方法
+            System.out.println(e.toString());
         }
+
         System.out.println("--------------------------");
     }
 }
+
