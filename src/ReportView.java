@@ -14,7 +14,6 @@ public class ReportView {
         System.out.printf("申報價值: %.2f%n", p.getDeclaredValue());
         System.out.printf("內容描述: %s%n", p.getContentDescription());
 
-        // 目前狀態：用最後一筆事件顯示（不依賴 TrackingEvent getter）
         String status = "(未知)";
         List<TrackingEvent> history = p.getEventHistory();
         if (history != null && !history.isEmpty()) {
@@ -36,7 +35,6 @@ public class ReportView {
         }
 
         for (TrackingEvent e : history) {
-            // ✅ 不用 getTime/getLocation/getStatus/getDescription，避免找不到方法
             System.out.println(e.toString());
         }
 
