@@ -64,3 +64,24 @@ classDiagram
     DataStore o--> "0..*" Package : manages
     Package *--> "0..*" TrackingEvent : contains history
     Package ..> Customer : senderId refers to >
+---
+
+## 🏗 系統架構圖（System Architecture Diagram）
+
+```mermaid
+flowchart TB
+  U[使用者 User<br/>Console / UI 操作介面]
+
+  P[Presentation Layer<br/>(UI / Menu)<br/><br/>顯示選單<br/>接收使用者輸入<br/>顯示結果]
+
+  B[Business Logic Layer<br/>(Service / Controller)<br/><br/>PackageService<br/>CustomerService<br/>計費 / 查詢 / 追蹤邏輯]
+
+  D[Data Layer<br/>(DataStore)<br/><br/>List&lt;Package&gt;<br/>List&lt;Customer&gt;<br/>loadFromFile()<br/>saveToFile()]
+
+  F[File System<br/>packages.txt / data.dat]
+
+  U -->|呼叫| P
+  P -->|呼叫| B
+  B -->|存取| D
+  D --> F
+
