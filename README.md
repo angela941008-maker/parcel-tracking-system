@@ -1,6 +1,14 @@
 # parcel-tracking-system
 
-## 📦 系統類別圖 (Class Diagram)
+## 1. 系統架構設計 (System Architecture) 類別圖
+本專案採用 **三層式架構 (3-Tier Architecture)** 設計，確保高內聚與低耦合。下圖為系統完整類別圖，包含視圖層、邏輯層與資料層的互動關係。
+
+![系統完整架構圖](./系統類別圖_final.png)
+
+---
+
+## 2. 資料層核心設計 (Data Layer Detail) 類別圖
+本系統的資料核心由組員 A (我) 負責設計與實作，採用物件導向設計原則，確保資料模型的完整性與擴充性。
 
 ```mermaid
 classDiagram
