@@ -7,68 +7,54 @@
 
 ---
 
-## 2. 資料層核心設計 (Data Layer Detail) 類別圖
-本系統的資料核心由組員 A (我) 負責設計與實作，採用物件導向設計原則，確保資料模型的完整性與擴充性。
+## 2. 物流包裹追蹤系統 - 系統架構圖 (System Architecture Diagram)
+展示程式運作時，資料是如何從使用者的鍵盤 (UI)，流向邏輯判斷 (Service)，最後存入檔案 (File) 的。
 
 ```mermaid
-classDiagram
-    class Customer {
-        -String customerId
-        -String name
-        -String phone
-        -boolean isContract
-        +Customer(id, name, phone, isContract)
-        +toString() String
-        +getCustomerId() String
-        +getName() String
-        +getPhone() String
-        +isContract() boolean
-    }
+graph TD
+    %% 定義樣式
+    classDef ui fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef logic fill:#fff9c4,stroke:#fbc02d,stroke-width:2px;
+    classDef data fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    classDef file fill:#eeeeee,stroke:#616161,stroke-width:2px,stroke-dasharray: 5 5;
 
-    class TrackingEvent {
-        -String timestamp
-        -String location
-        -String status
-        -String description
-        +TrackingEvent(time, loc, status, desc)
-        +toString() String
-        +getTimestamp() String
-        +getLocation() String
-        +getStatus() String
-        +getDescription() String
-    }
+    subgraph "表現層 (Presentation Layer)"
+        direction TB
+        Main(Main.java<br>程式入口)
+        Menu(Menu.java<br>主選單控制)
+        Input(InputHelper.java<br>輸入驗證)
+        View(ReportView.java<br>結果顯示)
+    end
 
-    class Package {
-        -String trackingNumber
-        -String senderId
-        -String receiverName
-        -String receiverAddress
-        -double weight
-        -String serviceType
-        -String currentStatus
-        -List~TrackingEvent~ eventHistory
-        +Package(trackNum, sender, receiver, addr, w, type)
-        +addEvent(loc, status, desc) void
-        +toString() String
-        +getTrackingNumber() String
-        +getSenderId() String
-        +getReceiverName() String
-        +getReceiverAddress() String
-        +getWeight() double
-        +getServiceType() String
-        +getEventHistory() List~TrackingEvent~
-    }
+    subgraph "商業邏輯層 (Business Logic Layer)"
+        direction TB
+        TrackService(TrackingService.java<br>追蹤與狀態管理)
+        BillService(BillingService.java<br>運費計算策略)
+    end
 
-    class DataStore {
-        +static List~Package~ packages
-        +static List~Customer~ customers
-        +static initData() void
-        +static saveToFile() void
-        +static loadFromFile() void
-    }
+    subgraph "資料存取層 (Data Access Layer)"
+        DataStore(DataStore.java<br>資料庫模擬/Repository)
+    end
 
-    %% Relationships
-    DataStore o--> "0..*" Customer : manages
-    DataStore o--> "0..*" Package : manages
-    Package *--> "0..*" TrackingEvent : contains history
-    Package ..> Customer : senderId refers to >
+    subgraph "實體儲存 (Physical Storage)"
+        CSV[(".csv Files<br>(Customers, Packages, Events)")]
+    end
+
+    %% 關係連線
+    Main -->|啟動| Menu
+    Menu -->|讀取輸入| Input
+    Menu -->|顯示結果| View
+    
+    Menu -->|查詢/更新| TrackService
+    Menu -->|請求計算| BillService
+    
+    TrackService -->|存取資料| DataStore
+    BillService -->|讀取包裹資訊| DataStore
+    
+    DataStore <-->|讀取/寫入| CSV
+    
+    %% 套用樣式
+    class Main,Menu,Input,View ui;
+    class TrackService,BillService logic;
+    class DataStore data;
+    class CSV file;
