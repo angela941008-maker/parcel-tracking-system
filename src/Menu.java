@@ -32,11 +32,11 @@ public class Menu {
         System.out.println("0. 離開");
     }
 
-    // ✅ C 組員：建立包裹（這是 UI 串接 DataStore 的地方）
+    // C 組員：建立包裹（這是 UI 串接 DataStore 的地方）
     private void createPackage() {
         System.out.println("\n[建立包裹]");
 
-        String trackingNumber = input.readString("追蹤單號(自行輸入/規則由你們決定)：");
+        String trackingNumber = input.readString("追蹤單號(例: ABC-1234)：");
         String senderId = input.readString("寄件人ID：");
         String receiverName = input.readString("收件人姓名：");
         String receiverAddress = input.readString("收件人地址：");
@@ -50,7 +50,7 @@ public class Menu {
         Package pkg = new Package(trackingNumber, senderId, receiverName, receiverAddress,
                 weight, serviceType, dimensions, declaredValue, contentDescription);
 
-        // 你們 TrackingService 是查詢用的，新增則直接丟 DataStore.packages（A已做假DB）
+        // TrackingService 是查詢用的，新增則直接丟 DataStore.packages（A已做假DB）
         if (DataStore.packages == null) {
             System.out.println("錯誤：DataStore.packages 尚未初始化");
             return;
@@ -78,7 +78,7 @@ public class Menu {
     private void updateStatus() {
         System.out.println("\n[更新狀態]");
         String trackingNumber = input.readString("輸入追蹤單號：");
-        String newStatus = input.readString("新狀態(例: In Transit/Out for Delivery/Delivered 或 中文)：");
+        String newStatus = input.readString("新狀態(例: In Transit/Out for Delivery/Delivered)：");
         String location = input.readString("地點(例: 台北轉運站)：");
 
         boolean ok = trackingService.updateStatus(trackingNumber, newStatus, location);

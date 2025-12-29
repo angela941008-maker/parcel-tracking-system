@@ -49,19 +49,24 @@ public class TrackingService {
         return true;
     }
 
+
     /**
-     * 輔助方法：因為不確定 Package 有沒有 getStatus()，
-     * 我們自己去歷史紀錄抓最後一筆，確保萬無一失。
+     * 輔助方法：從歷史紀錄中抓取最新的一筆狀態
      */
     private String getCurrentStatusFromHistory(Package pkg) {
         List<TrackingEvent> history = pkg.getEventHistory();
+        
+        // 1. 防呆：如果歷史紀錄是空的 (剛建立包裹時可能發生)
         if (history == null || history.isEmpty()) {
-            return "Unknown";
+            return "Unknown"; 
         }
-        // 取得最後一筆事件的字串表示，這裡稍微簡化，
-        // 理想情況是 TrackingEvent 有 getStatus()，如果沒有，這裡可能只能回傳空字串
-        // 但通常 Package 內部會有 currentStatus 變數，若 A 有寫 public getter 最好
-        // 若沒有，我們暫時假設它不是 "Delivered"
-        return "In Transit"; // 預設回傳運送中，讓流程能繼續
+
+        // 2. 取得清單中的「最後一個」元素 (即最新的狀態)
+        // history.size() - 1 就是最後一項的索引
+        TrackingEvent lastEvent = history.get(history.size() - 1);
+        
+        // 3. 回傳該事件的狀態
+        // 您確認過 TrackingEvent 有 getStatus()，這樣寫絕對安全
+        return lastEvent.getStatus(); 
     }
 }

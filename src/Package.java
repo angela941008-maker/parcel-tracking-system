@@ -9,7 +9,7 @@ public class Package {
     private double weight;
     private String serviceType;
     
-    // ★ [新增] 依據需求補上: 尺寸、申報價值、內容物
+    // [新增] 依據需求補上: 尺寸、申報價值、內容物
     private String dimensions;       // e.g. "10x10x10"
     private double declaredValue;    // 申報價值 (用來算保險費)
     private String contentDescription; // 內容物描述
@@ -17,7 +17,7 @@ public class Package {
     private String currentStatus;
     private List<TrackingEvent> eventHistory;
 
-    // ★ [修改] 建構子增加新欄位 (dimensions, declaredValue, contentDescription)
+    // [修改] 建構子增加新欄位 (dimensions, declaredValue, contentDescription)
     public Package(String trackingNumber, String senderId, String receiverName, String receiverAddress, 
                    double weight, String serviceType, 
                    String dimensions, double declaredValue, String contentDescription) {
@@ -28,7 +28,7 @@ public class Package {
         this.weight = weight;
         this.serviceType = serviceType;
         
-        // ★ [新增] 初始化新欄位
+        // [新增] 初始化新欄位
         this.dimensions = dimensions;
         this.declaredValue = declaredValue;
         this.contentDescription = contentDescription;
@@ -63,4 +63,5 @@ public class Package {
     public String getDimensions() { return dimensions; }
     public double getDeclaredValue() { return declaredValue; }
     public String getContentDescription() { return contentDescription; }
+    public String getCurrentStatus() {return currentStatus;}
 }

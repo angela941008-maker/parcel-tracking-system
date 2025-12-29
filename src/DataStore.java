@@ -7,11 +7,11 @@ public class DataStore {
     public static List<Customer> customers = new ArrayList<>();
 
     public static void initData() {
-        // ★ [修改] 1. 建立假客戶 (補上 email 和 address)
+        // [修改] 1. 建立假客戶 (補上 email 和 address)
         customers.add(new Customer("C001", "王小明", "0912345678", "wang@email.com", "台北市大安區", true));
         customers.add(new Customer("C002", "李大華", "0987654321", "lee@email.com", "新北市板橋區", false));
 
-        // ★ [修改] 2. 建立假包裹 (補上 dimensions, value, content)
+        // [修改] 2. 建立假包裹 (補上 dimensions, value, content)
         Package p1 = new Package("TRK-1001", "C001", "張三", "台北市信義區", 2.5, "隔日達",
                                  "30x20x10", 1000.0, "書籍");
         packages.add(p1);

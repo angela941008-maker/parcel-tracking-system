@@ -2,13 +2,13 @@ public class Customer {
     private String customerId;
     private String name;
     private String phone;
-    // ★ [新增] 依據需求補上 Email 與 地址
+    // [新增] 依據需求補上 Email 與 地址
     private String email;
     private String address;
     
     private boolean isContract; 
 
-    // ★ [修改] 建構子 (Constructor) 增加 email 和 address 參數
+    // [修改] 建構子 (Constructor) 增加 email 和 address 參數
     public Customer(String customerId, String name, String phone, String email, String address, boolean isContract) {
         this.customerId = customerId;
         this.name = name;
