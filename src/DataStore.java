@@ -24,7 +24,7 @@ public class DataStore {
         // A. 儲存客戶
         try (PrintWriter writer = new PrintWriter(new FileWriter("customers.csv"))) {
             for (Customer c : customers) {
-                // ★ [修改] 格式: ID,Name,Phone,Email,Address,IsContract
+                // [修改] 格式: ID,Name,Phone,Email,Address,IsContract
                 String line = c.getCustomerId() + "," + c.getName() + "," + c.getPhone() + "," + 
                               c.getEmail() + "," + c.getAddress() + "," + c.isContract();
                 writer.println(line);
@@ -36,7 +36,7 @@ public class DataStore {
         // B. 儲存包裹
         try (PrintWriter writer = new PrintWriter(new FileWriter("packages.csv"))) {
             for (Package p : packages) {
-                // ★ [修改] 格式: TrackingNum,SenderId,ReceiverName,ReceiverAddr,Weight,ServiceType,Dims,Value,Desc
+                // [修改] 格式: TrackingNum,SenderId,ReceiverName,ReceiverAddr,Weight,ServiceType,Dims,Value,Desc
                 String line = p.getTrackingNumber() + "," + p.getSenderId() + "," +
                               p.getReceiverName() + "," + p.getReceiverAddress() + "," +
                               p.getWeight() + "," + p.getServiceType() + "," +
@@ -75,7 +75,7 @@ public class DataStore {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(",");
-                    // ★ [修改] 因為欄位變多，現在長度要是 6
+                    // [修改] 因為欄位變多，現在長度要是 6
                     if (parts.length >= 6) {
                         // parts[3]=Email, parts[4]=Address, parts[5]=IsContract
                         boolean isContract = Boolean.parseBoolean(parts[5]);
@@ -94,7 +94,7 @@ public class DataStore {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     String[] parts = line.split(",");
-                    // ★ [修改] 因為欄位變多，現在長度要是 9
+                    // [修改] 因為欄位變多，現在長度要是 9
                     if (parts.length >= 9) {
                         double weight = Double.parseDouble(parts[4]);
                         // parts[6]=Dims, parts[7]=Value, parts[8]=Desc
