@@ -32,7 +32,7 @@ public class Menu {
         System.out.println("0. 離開");
     }
 
-    // ✅ C 組員：建立包裹（這是 UI 串接 DataStore 的地方）
+    // C 組員：建立包裹（這是 UI 串接 DataStore 的地方）
     private void createPackage() {
         System.out.println("\n[建立包裹]");
 
@@ -57,7 +57,7 @@ public class Menu {
         }
 
         DataStore.packages.add(pkg);
-        System.out.println("✅ 包裹建立成功！");
+        System.out.println("包裹建立成功！");
         ReportView.printPackage(pkg);
     }
 
@@ -83,14 +83,14 @@ public class Menu {
 
         boolean ok = trackingService.updateStatus(trackingNumber, newStatus, location);
         if (ok) {
-            System.out.println("✅ 更新成功！");
+            System.out.println("更新成功！");
             Package pkg = trackingService.searchPackage(trackingNumber);
             if (pkg != null) {
                 ReportView.printPackage(pkg);
                 ReportView.printHistory(pkg);
             }
         } else {
-            System.out.println("❌ 更新失敗");
+            System.out.println("更新失敗");
         }
     }
 
@@ -105,6 +105,6 @@ public class Menu {
         }
 
         double price = billingService.calculatePrice(pkg);
-        System.out.printf("📦 運費金額：%.2f%n", price);
+        System.out.printf("運費金額：%.2f%n", price);
     }
 }
