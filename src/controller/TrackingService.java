@@ -1,5 +1,9 @@
-import java.util.List;
+package controller;
 
+import java.util.List;
+import models.Package;
+import models.DataStore;
+import models.TrackingEvent;
 public class TrackingService {
 
     /**
@@ -7,8 +11,6 @@ public class TrackingService {
      * 直接遍歷 DataStore 的靜態清單
      */
     public Package searchPackage(String trackingNumber) {
-        // 假設 DataStore 有 getPackages()，如果沒有，請嘗試 DataStore.packages (視 A 的權限設定)
-        // 這裡採用最通用的寫法
         List<Package> allPackages = DataStore.packages; 
         
         if (allPackages == null) return null;
@@ -49,24 +51,17 @@ public class TrackingService {
         return true;
     }
 
-
     /**
-     * 輔助方法：從歷史紀錄中抓取最新的一筆狀態
+     * 輔助方法：因為不確定 Package 有沒有 getStatus()，
+     * 我們自己去歷史紀錄抓最後一筆，確保萬無一失。
      */
-    private String getCurrentStatusFromHistory(Package pkg) {
+    public String getCurrentStatusFromHistory(Package pkg) {
         List<TrackingEvent> history = pkg.getEventHistory();
-        
-        // 1. 防呆：如果歷史紀錄是空的 (剛建立包裹時可能發生)
         if (history == null || history.isEmpty()) {
-            return "Unknown"; 
+            return "Unknown";
         }
-
-        // 2. 取得清單中的「最後一個」元素 (即最新的狀態)
-        // history.size() - 1 就是最後一項的索引
+        // 取得最後一筆事件 (最新的狀態)
         TrackingEvent lastEvent = history.get(history.size() - 1);
-        
-        // 3. 回傳該事件的狀態
-        // 您確認過 TrackingEvent 有 getStatus()，這樣寫絕對安全
-        return lastEvent.getStatus(); 
+        return lastEvent.getStatus();
     }
 }

@@ -1,3 +1,6 @@
+package controller;
+import models.Package;
+
 public class BillingService {
 
     // --- 費率設定 (可依需求調整) ---

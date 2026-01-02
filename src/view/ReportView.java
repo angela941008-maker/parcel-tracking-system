@@ -1,4 +1,10 @@
+package view;
+
 import java.util.List;
+
+import models.Customer;
+import models.Package;
+import models.TrackingEvent;
 
 public class ReportView {
 
@@ -13,7 +19,7 @@ public class ReportView {
         System.out.printf("尺寸    : %s%n", p.getDimensions());
         System.out.printf("申報價值: %.2f%n", p.getDeclaredValue());
         System.out.printf("內容描述: %s%n", p.getContentDescription());
-
+        System.out.printf("費用: %.2f%n", p.getFee());
         String status = "(未知)";
         List<TrackingEvent> history = p.getEventHistory();
         if (history != null && !history.isEmpty()) {
@@ -23,6 +29,21 @@ public class ReportView {
         System.out.printf("目前狀態(最後事件): %s%n", status);
         System.out.println("==============================");
     }
+    
+    public static void printCustomer(Customer _customer) {
+    
+        
+        System.out.println("\n========== 客戶資訊 ==========");
+        System.out.printf("客戶ID: %s%n", _customer.getCustomerId());
+        System.out.printf("客戶姓名: %s%n", _customer.getName());
+        System.out.printf("客戶電話  : %s%n", _customer.getPhone());
+        System.out.printf("email   : %s%n", _customer.getEmail());
+        System.out.printf("客戶地址:  %s%n", _customer.getAddress());
+        System.out.printf("客戶類型: %s%n", _customer.getContractType());
+       
+        System.out.println("==============================");
+    }
+
 
     public static void printHistory(Package p) {
         System.out.println("\n------ 追蹤歷史紀錄 ------");

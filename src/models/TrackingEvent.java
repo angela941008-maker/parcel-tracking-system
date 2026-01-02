@@ -1,3 +1,5 @@
+package models;
+
 public class TrackingEvent {
     private String timestamp;
     private String location;

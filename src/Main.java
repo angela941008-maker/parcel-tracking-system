@@ -1,3 +1,6 @@
+import models.DataStore;
+import view.Menu;
+
 public class Main {
     public static void main(String[] args) {
         // 1. 程式一啟動，先讀檔
@@ -5,7 +8,7 @@ public class Main {
         DataStore.loadFromFile();
 
         // 如果讀不到檔案(第一次執行)，載入預設假資料
-        if (DataStore.packages.isEmpty()) {
+        if (DataStore.accounts.isEmpty()) {
             DataStore.initData();
         }
 

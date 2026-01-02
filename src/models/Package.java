@@ -1,3 +1,5 @@
+package models;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class Package {
     private String contentDescription; // 內容物描述
 
     private String currentStatus;
+    private double fee; //費用
     private List<TrackingEvent> eventHistory;
 
     // [修改] 建構子增加新欄位 (dimensions, declaredValue, contentDescription)
@@ -38,6 +41,14 @@ public class Package {
         addEvent("系統", "收件", "包裹已建立");
     }
 
+    public void setFee(double _fee)
+    {
+    	this.fee=_fee;
+    }
+    public double getFee()
+    {
+    	return this.fee;
+    }
     public void addEvent(String location, String status, String description) {
         String time = java.time.LocalDateTime.now().toString(); 
         TrackingEvent event = new TrackingEvent(time, location, status, description);
@@ -59,9 +70,8 @@ public class Package {
     public String getReceiverName() { return receiverName;}
     public String getReceiverAddress() { return receiverAddress;}
     
-    // ★ [新增] 新欄位的 Getters
+    // [新增] 新欄位的 Getters
     public String getDimensions() { return dimensions; }
     public double getDeclaredValue() { return declaredValue; }
     public String getContentDescription() { return contentDescription; }
-    public String getCurrentStatus() {return currentStatus;}
 }

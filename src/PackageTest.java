@@ -1,4 +1,6 @@
 // 手動模擬單元測試 (Custom Unit Test)
+import models.Package;
+import models.TrackingEvent;
 public class PackageTest {
     
     public static void main(String[] args) {
